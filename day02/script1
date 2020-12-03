@@ -1,0 +1,31 @@
+#! /usr/bin/env bash
+
+# Find how many passwords are valid according to their policies?
+
+re="^([0-9]+)-([0-9]+) (.): (.+)$"
+
+count_letter() {
+  local l w i c
+  l="$1"
+  w="$2"
+  c=0
+  for ((i=0;i<${#w};i++)); do
+    [[ ${w:i:1} == "$l" ]] && ((c++))
+  done
+  echo $((c))
+}
+
+correct=0
+
+while read -r line; do
+  [[ $line =~ $re ]] && {
+    ((min=BASH_REMATCH[1]))
+    ((max=BASH_REMATCH[2]))
+    chr="${BASH_REMATCH[3]}"
+    psw="${BASH_REMATCH[4]}"
+    cnt="$(count_letter "$chr" "$psw")"
+    ((cnt>=min && cnt<=max)) && ((correct++))
+  }
+done < "./input.txt"
+
+echo $((correct))

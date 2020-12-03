@@ -1,0 +1,21 @@
+#! /usr/bin/env bash
+
+# Find the three entries that sum to 2020 and multiply them together.
+
+declare -a INPUT
+
+while read -r entry; do
+  INPUT+=("$entry")
+done < <(sort -n ./input.txt)
+
+for a in "${INPUT[@]}"; do
+  for b in "${INPUT[@]}"; do
+    ((a==b)) && continue
+    for c in "${INPUT[@]}"; do
+      ((c==a || c==b)) && continue
+      ((a+b+c==2020)) && { echo $((a*b*c)); found=1; break; }
+    done
+    [[ $found ]] && break
+  done
+  [[ $found ]] && break
+done

@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+
+# Find the two entries that sum to 2020 and multiply them together.
+
+declare -a INPUT
+
+while read -r entry; do
+  INPUT+=("$entry")
+done < "./input.txt"
+
+for a in "${INPUT[@]}"; do
+  for ((j=0;j<${#INPUT[@]};j++)); do
+    ((b=INPUT[j]))
+    ((a==b)) && continue
+    ((a+b==2020)) && { echo $((a*b)); found=1; break; }
+  done
+  [[ $found ]] && break
+done

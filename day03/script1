@@ -1,0 +1,24 @@
+#! /usr/bin/env bash
+
+declare -a MAP
+
+mapfile -t MAP < "./input.txt"
+
+right=3
+tree=0
+skip=1
+
+for line in "${MAP[@]}"; do
+  ((len=${#line}))
+  [[ $skip ]] && {
+    unset skip;
+    # echo "${line:$((right)):1} => $line ($right)"
+    continue
+  }
+  ((right>len-1)) && ((right-=len))
+  [[ ${line:$((right)):1} == "#" ]] && ((tree++))
+  # echo "${line:$((right)):1} => $line ($right)"
+  ((right+=3))
+done
+
+echo $((tree))

@@ -1,0 +1,24 @@
+#! /usr/bin/env bash
+
+declare -a MAP
+
+mapfile -t MAP < "./input.txt"
+
+count=0
+right=$1
+rstep=$1
+dstep=$2
+tree=0
+
+for ((count=0;count<${#MAP[@]};count+=dstep)); do
+  ((count==0)) && continue
+  ((count%dstep>0)) && continue
+  line="${MAP[$count]}"
+  ((len=${#line}))
+  ((right>len-1)) && ((right-=len))
+  [[ ${line:$((right)):1} == "#" ]] && ((tree++))
+  echo "($tree) ${line:$((right)):1} => $line ($right)"
+  ((right+=rstep))
+done
+
+echo $((tree))
