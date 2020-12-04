@@ -1,0 +1,71 @@
+#! /usr/bin/env bash
+
+# byr (Birth Year)
+# iyr (Issue Year)
+# eyr (Expiration Year)
+# hgt (Height)
+# hcl (Hair Color)
+# ecl (Eye Color)
+# pid (Passport ID)
+# cid (Country ID) ignore!
+
+KEYS=( "byr" "iyr" "eyr" "hgt" "hcl" "ecl" "pid" "cid" )
+
+declare -a PAIRS
+declare -A PASSPORT
+
+is_key_valid() {
+  local key k
+  key="$1"
+  for k in "${KEYS[@]}"; do
+    [[ $k == "$key" ]] && return 0
+  done
+  return 1
+}
+
+get_pairs() {
+  PAIRS=()
+  read -d=$'\n' -ra PAIRS <<< "${1/ /$'\n'}"
+}
+
+make_passport() {
+  local pair key value count
+  get_pairs "$1"
+  PASSPORT=()
+  count=0
+  for pair in "${PAIRS[@]}"; do
+    [[ $pair =~ ^(.+):(.+)$ ]] && {
+      key="${BASH_REMATCH[1]}"
+      value="${BASH_REMATCH[2]}"
+      PASSPORT["$key"]="$value"
+    }
+  done
+}
+
+check_passport() {
+  local key count
+  make_passport "$1"
+  ((count=${#PASSPORT[@]}))
+  ((count<8)) && { [[ ${PASSPORT["cid"]} ]] || ((count++)); }
+  echo -n "(${#PASSPORT[@]}/$count) "
+  ((count==8)) && return 0
+  return 1
+}
+
+valid_passport=0
+passport_count=0
+
+while read -r line; do
+  [[ $line ]] && {
+    [[ $psp ]] && psp+=" $line"
+    [[ $psp ]] || psp+="$line"
+  }
+  [[ $line ]] || {
+    echo -n "$((++passport_count)). $psp >> "
+    check_passport "$psp" && ((valid_passport++))
+    echo "[$valid_passport]"
+    unset psp
+  }
+done < "./input.txt"
+
+echo $((valid_passport))
