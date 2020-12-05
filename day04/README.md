@@ -1,4 +1,4 @@
-# DAY 04
+# DAY 4
 
 # Part One
 
