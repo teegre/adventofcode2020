@@ -1,0 +1,63 @@
+#! /usr/bin/env bash
+
+# The first 7 characters will either be F or B; these specify exactly one of the 128 rows on the plane (numbered 0 through 127). Each letter tells you which half of a region the given seat is in. Start with the whole list of rows; the first letter indicates whether the seat is in the front (0 through 63) or the back (64 through 127). The next letter indicates which half of that region the seat is in, and so on until you're left with exactly one row.
+# 
+# For example, consider just the first seven characters of FBFBBFFRLR:
+# 
+#     Start by considering the whole range, rows 0 through 127.
+#     F means to take the lower half, keeping rows 0 through 63.
+#     B means to take the upper half, keeping rows 32 through 63.
+#     F means to take the lower half, keeping rows 32 through 47.
+#     B means to take the upper half, keeping rows 40 through 47.
+#     B keeps rows 44 through 47.
+#     F keeps rows 44 through 45.
+#     The final F keeps the lower of the two, row 44.
+
+find_row() {
+  local pos i row min max
+  min=0
+  max=127
+  for ((i=0;i<8;i++)); do
+    pos="${1:i:1}"
+    case $pos in
+      B) ((min=((max+min)/2)+1)) ;;
+      F) ((max=(max+min)/2)) ;;
+    esac
+  done
+  ((row=min>max?max:min))
+  echo $((row))
+  
+}
+
+# For example, consider just the last 3 characters of FBFBBFFRLR:
+# 
+#     Start by considering the whole range, columns 0 through 7.
+#     R means to take the upper half, keeping columns 4 through 7.
+#     L means to take the lower half, keeping columns 4 through 5.
+#     The final R keeps the upper of the two, column 5.
+
+find_col() {
+  local pos i col min max
+  min=0
+  max=7
+  for ((i=7;i<10;i++)); do
+    pos="${1:i:1}"
+    case $pos in
+      R) ((min=((max+min)/2)+1)) ;;
+      L) ((max=(max+min)/2)) ;;
+    esac
+  done
+  ((col=min>max?max:min))
+  echo $((col))
+  
+}
+
+max=0
+while read -r line; do
+  row="$(find_row "$line")"
+  col="$(find_col "$line")"
+  ((id=row*8+col))
+  ((max=id>max?id:max))
+done < "./input.txt"
+
+echo "$max"
