@@ -1,0 +1,22 @@
+#! /usr/bin/env bash
+
+answer=0
+people=0
+declare -A question
+while read -r line; do
+  [[ $line ]] && {
+    ((people++))
+    for ((i=0;i<${#line};i++)); do
+      question["${line:$((i)):1}"]+="x"
+    done
+  }
+  [[ $line ]] || {
+    for q in "${question[@]}"; do
+      ((${#q}==people)) && ((answer++))
+    done
+    people=0
+    question=()
+  }
+done < "./input.txt"
+
+echo $((answer))

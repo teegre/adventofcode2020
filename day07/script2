@@ -1,0 +1,43 @@
+#! /usr/bin/env bash
+
+declare -A BAGS
+declare -i result
+
+result=0
+
+rule="^(.+) bags contain (.+)\.$"
+bag_count_rule="^([0-9]+) (.+) bags?\.?$"
+
+parse_input() {
+  local line
+  while read -r line; do
+    [[ $line =~ $rule ]] && {
+      BAGS["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
+    }
+  done < "./input.txt"
+}
+
+search_bag() {
+  local _bag contains container bag count color
+  local c=$2
+  for _bag in "${!BAGS[@]}"; do
+    [[ $_bag == "$1" ]] && {
+      contains="${BAGS["$_bag"]}"
+      [[ $contains == "no other bags" ]] && break
+      IFS=$'\n' read -d "" -ra container <<< "${contains//, /$'\n'}"
+      for bag in "${container[@]}"; do
+        [[ $bag =~ $bag_count_rule ]] && {
+          count="${BASH_REMATCH[1]}"
+          color="${BASH_REMATCH[2]}"
+          ((result+=count*c))    
+          search_bag "$color" $((count*c))
+        }
+      done
+      break
+    }
+  done
+}
+
+parse_input
+search_bag "shiny gold" 1
+echo $((result))

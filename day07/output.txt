@@ -1,0 +1,267 @@
+---> dark cyan
+---> light salmon
+<--- light salmon 0
+---> dotted gray
+---> striped purple
+---> striped plum
+---> striped orange
+<--- striped orange 0
+<--- striped plum 1
+---> dull orange
+<--- dull orange 0
+<--- striped purple 2
+<--- dotted gray 1
+---> light plum
+<--- light plum 0
+---> light indigo
+---> drab plum
+<--- drab plum 0
+---> mirrored olive
+---> muted olive
+---> dim coral
+<--- dim coral 0
+<--- muted olive 1
+<--- mirrored olive 1
+<--- light indigo 2
+---> faded orange
+<--- faded orange 0
+---> wavy lime
+<--- wavy lime 0
+---> bright crimson
+---> dim yellow
+---> dim lavender
+---> muted salmon
+---> faded salmon
+<--- faded salmon 0
+---> wavy silver
+<--- wavy silver 0
+<--- muted salmon 2
+---> striped indigo
+<--- striped indigo 0
+<--- dim lavender 2
+<--- dim yellow 1
+---> dim gray
+<--- dim gray 0
+<--- bright crimson 2
+---> dull red
+---> dark lavender
+---> wavy orange
+<--- wavy orange 0
+<--- dark lavender 1
+<--- dull red 1
+<--- dark cyan 8
+---> dull coral
+---> mirrored chartreuse
+---> striped olive
+---> faded blue
+<--- faded blue 0
+<--- striped olive 1
+---> plaid green
+---> wavy blue
+<--- wavy blue 0
+---> pale indigo
+---> pale teal
+<--- pale teal 0
+<--- pale indigo 1
+---> posh silver
+<--- posh silver 0
+<--- plaid green 3
+---> mirrored red
+<--- mirrored red 0
+---> mirrored crimson
+---> shiny fuchsia
+---> bright silver
+<--- bright silver 0
+<--- shiny fuchsia 1
+<--- mirrored crimson 1
+---> light plum
+<--- light plum 0
+---> dull magenta
+---> muted chartreuse
+---> wavy gold
+<--- wavy gold 0
+<--- muted chartreuse 1
+---> plaid brown
+<--- plaid brown 0
+---> muted beige
+---> pale cyan
+<--- pale cyan 0
+---> muted bronze
+---> wavy magenta
+<--- wavy magenta 0
+<--- muted bronze 1
+---> pale orange
+<--- pale orange 0
+<--- muted beige 3
+<--- dull magenta 3
+<--- mirrored chartreuse 6
+---> clear gray
+---> dotted maroon
+<--- dotted maroon 0
+---> vibrant plum
+---> light lime
+---> clear fuchsia
+---> dotted gold
+<--- dotted gold 0
+<--- clear fuchsia 1
+<--- light lime 1
+---> light silver
+---> striped green
+<--- striped green 0
+---> muted bronze
+---> wavy magenta
+<--- wavy magenta 0
+<--- muted bronze 1
+<--- light silver 2
+---> drab indigo
+---> dim black
+<--- dim black 0
+<--- drab indigo 1
+<--- vibrant plum 3
+---> light cyan
+---> dark tan
+---> dark brown
+<--- dark brown 0
+<--- dark tan 1
+---> striped olive
+---> faded blue
+<--- faded blue 0
+<--- striped olive 1
+---> bright cyan
+<--- bright cyan 0
+---> faded silver
+---> faded green
+<--- faded green 0
+---> plaid turquoise
+<--- plaid turquoise 0
+<--- faded silver 2
+<--- light cyan 4
+---> posh chartreuse
+---> mirrored teal
+<--- mirrored teal 0
+---> faded bronze
+---> plaid gray
+---> light coral
+---> vibrant red
+<--- vibrant red 0
+<--- light coral 1
+---> vibrant purple
+---> muted teal
+---> striped salmon
+<--- striped salmon 0
+<--- muted teal 1
+---> muted cyan
+---> clear coral
+<--- clear coral 0
+<--- muted cyan 1
+---> mirrored crimson
+---> shiny fuchsia
+---> bright silver
+<--- bright silver 0
+<--- shiny fuchsia 1
+<--- mirrored crimson 1
+<--- vibrant purple 3
+---> pale olive
+---> faded green
+<--- faded green 0
+<--- pale olive 1
+---> dull purple
+<--- dull purple 0
+<--- plaid gray 4
+---> vibrant chartreuse
+---> shiny turquoise
+<--- shiny turquoise 0
+<--- vibrant chartreuse 1
+---> bright crimson
+---> dim yellow
+---> dim lavender
+---> muted salmon
+---> faded salmon
+<--- faded salmon 0
+---> wavy silver
+<--- wavy silver 0
+<--- muted salmon 2
+---> striped indigo
+<--- striped indigo 0
+<--- dim lavender 2
+<--- dim yellow 1
+---> dim gray
+<--- dim gray 0
+<--- bright crimson 2
+<--- faded bronze 3
+---> dim purple
+---> muted plum
+---> plaid silver
+<--- plaid silver 0
+<--- muted plum 1
+---> drab red
+<--- drab red 0
+<--- dim purple 2
+---> dim crimson
+<--- dim crimson 0
+<--- posh chartreuse 4
+---> vibrant tomato
+---> pale gray
+---> pale lavender
+<--- pale lavender 0
+---> shiny olive
+<--- shiny olive 0
+<--- pale gray 2
+---> striped gold
+<--- striped gold 0
+<--- vibrant tomato 2
+---> pale turquoise
+---> wavy gray
+<--- wavy gray 0
+<--- pale turquoise 1
+---> dotted olive
+---> clear magenta
+<--- clear magenta 0
+<--- dotted olive 1
+<--- clear gray 7
+<--- dull coral 2
+---> clear gold
+---> pale beige
+---> light violet
+<--- light violet 0
+---> drab turquoise
+---> dotted indigo
+---> striped indigo
+<--- striped indigo 0
+---> faded turquoise
+<--- faded turquoise 0
+---> dim orange
+---> clear beige
+<--- clear beige 0
+<--- dim orange 1
+<--- dotted indigo 3
+<--- drab turquoise 1
+---> light olive
+---> muted blue
+<--- muted blue 0
+---> bright green
+---> dark teal
+---> dark salmon
+---> dull gold
+<--- dull gold 0
+<--- dark salmon 1
+<--- dark teal 1
+---> dim white
+---> faded gray
+<--- faded gray 0
+<--- dim white 1
+<--- bright green 2
+---> vibrant salmon
+<--- vibrant salmon 0
+<--- light olive 3
+---> posh coral
+---> vibrant violet
+<--- vibrant violet 0
+<--- posh coral 1
+---> posh fuchsia
+---> faded fuchsia
+<--- faded fuchsia 0
+<--- posh fuchsia 1
+<--- pale beige 5
+<--- clear gold 1
+<--- shiny gold 3
