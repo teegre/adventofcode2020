@@ -1,0 +1,29 @@
+#! /usr/bin/env bash
+
+declare -a CODE
+mapfile -t CODE < "./input.txt"
+
+r="^(.+) (.+)$"
+
+
+cursor=0
+acc=0
+
+declare -A lines
+
+while :; do
+  line="${CODE[$((cursor))]}"
+  [[ ${lines["$cursor"]} ]] && break
+  [[ $line =~ $r ]] && {
+    instr="${BASH_REMATCH[1]}"
+    value="${BASH_REMATCH[2]}"
+    lines["$cursor"]=1
+    case $instr in
+      nop) ((cursor++)) ;;
+      acc) ((acc+=value)); ((cursor++)) ;;
+      jmp) ((cursor+=value))
+    esac
+  }
+done
+
+echo $((acc))

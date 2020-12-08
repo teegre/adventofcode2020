@@ -1,0 +1,62 @@
+#! /usr/bin/env bash
+
+declare -a CODE
+mapfile -t CODE < "./input.txt"
+
+r="^(.+) (.+)$"
+
+
+cursor=0
+acc=0
+
+declare -A lines
+
+run_code() {
+  local next
+  lines=()
+  cursor=0
+  acc=0
+  next="$1"
+  while :; do
+    line="${CODE[$((cursor))]}"
+    [[ ${lines["$cursor"]} ]] && break
+    [[ $line ]] || { eof=1; break; }
+    [[ $line =~ $r ]] && {
+      instr="${BASH_REMATCH[1]}"
+      value="${BASH_REMATCH[2]}"
+      lines["$cursor"]=1
+      [[ $next ]] && ((cursor==next)) && {
+        [[ $instr == "nop" ]] && instr="jmp" || instr="nop"
+      }
+      case $instr in
+        nop) ((cursor++)) ;;
+        acc) ((acc+=value)); ((cursor++)) ;;
+        jmp) ((cursor+=value))
+      esac
+    }
+  done
+  [[ $eof ]] && { echo "-- eof: acc=$acc."; return 0; }
+  [[ $eof ]] || return 1
+}
+
+get_next_nop_jmp()
+{
+  local start
+  start=${1:-0} 
+  for ((l=start;l<${#CODE[@]};l++)); do
+    [[ ${CODE["$l"]} =~ $r ]] && {
+      ((l<=start)) && continue
+      instr="${BASH_REMATCH[1]}"
+      value="${BASH_REMATCH[2]}"
+      [[ $instr == "jmp" || $instr == "nop" ]] && {
+        echo "$l"
+        break
+      }
+    }
+  done
+} 
+next=0
+while ! run_code $((next)); do
+  next="$(get_next_nop_jmp "$next")"
+done
+
