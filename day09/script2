@@ -1,0 +1,62 @@
+#! /usr/bin/env bash
+
+declare -a DATASET
+mapfile -t DATASET < "./input.txt"
+
+step=26
+
+compute_pairs() {
+  local i n a b v start=$1
+  SUBDATASET=()
+  v=0
+  for ((i=start;i<start+step;i++)); do
+    SUBDATASET+=("${DATASET[$((i-1))]}")
+  done
+  n="${SUBDATASET[$((${#SUBDATASET[@]}-1))]}"
+  for a in "${SUBDATASET[@]}"; do
+    ((a==n)) && break
+    for b in "${SUBDATASET[@]}"; do
+      ((b==a)) && continue
+      ((b==n)) && continue
+      ((a+b==n)) && ((v++))
+    done
+  done
+  ((v==0)) && { echo "$n"; return 0; }
+  return 1
+}
+
+compute_contiguous() {
+  local goal=$1
+  local sum=0
+  local i start=0
+  local end=0
+  local a b
+  while ((sum!=goal && start<${#DATASET[@]})); do
+    i=start
+    sum=0
+    while ((sum<goal && i<${#DATASET[@]})); do
+      ((a=DATASET[i]))
+      ((sum+=a))
+      ((i++))
+    done
+    ((end=i))
+    ((start++))
+  done
+  echo "$sum => start=$start; end=$end"
+  ((min=DATASET[start-1])); max=0
+  for ((i=start-1;i<end-1;i++)); do
+    ((value=DATASET[i]))
+    ((min=value<min?value:min))
+    ((max=value>max?value:max))
+  done
+  echo $((min+max))
+}
+
+next=0
+while ((next<${#DATASET[@]})); do
+  result="$(compute_pairs $((next+1)))" && break
+  ((next+=1))
+done
+echo "$result"
+compute_contiguous $((result))
+
