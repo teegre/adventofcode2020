@@ -18,8 +18,9 @@ compute_pairs() {
     for b in "${SUBDATASET[@]}"; do
       ((b==a)) && continue
       ((b==n)) && continue
-      ((a+b==n)) && ((v++))
+      ((a+b==n)) && { ((v++)); break; }
     done
+    ((v>0)) && break
   done
   ((v==0)) && { echo "$n"; return 0; }
   return 1
@@ -30,11 +31,13 @@ compute_contiguous() {
   local sum=0
   local i start=0
   local end=0
-  local a b
-  while ((sum!=goal && start<${#DATASET[@]})); do
+  local a
+  local len
+  ((len=${#DATASET[@]}))
+  while ((sum!=goal && start<len)); do
     i=start
     sum=0
-    while ((sum<goal && i<${#DATASET[@]})); do
+    while ((sum<goal && i<len)); do
       ((a=DATASET[i]))
       ((sum+=a))
       ((i++))
@@ -57,6 +60,5 @@ while ((next<${#DATASET[@]})); do
   result="$(compute_pairs $((next+1)))" && break
   ((next+=1))
 done
-echo "$result"
 compute_contiguous $((result))
 

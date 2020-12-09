@@ -9,20 +9,18 @@ compute_pairs() {
   local i n a b v start=$1
   SUBDATASET=()
   v=0
-  # echo -n "START=$start "
   for ((i=start;i<start+step;i++)); do
     SUBDATASET+=("${DATASET[$((i-1))]}")
   done
   n="${SUBDATASET[$((${#SUBDATASET[@]}-1))]}"
-  # echo -n "| N=$n : "
   for a in "${SUBDATASET[@]}"; do
     ((a==n)) && break
     for b in "${SUBDATASET[@]}"; do
       ((b==a)) && continue
       ((b==n)) && continue
-      # echo "$a+$b=$((a+b))"
-      ((a+b==n)) && ((v++))
+      ((a+b==n)) && { ((v++)); break; }
     done
+    ((v>0)) && break
   done
   ((v==0)) && { echo "$n "; return 0; }
   return 1
@@ -30,8 +28,8 @@ compute_pairs() {
 
 next=0
 while ((next<${#DATASET[@]})); do
-  # echo ">> $next"
-  compute_pairs $((next+1)) && break
+  result=$(compute_pairs $((next+1))) && break
   ((next+=1))
 done
 
+echo $((result))
