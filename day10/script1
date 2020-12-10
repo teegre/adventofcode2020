@@ -1,0 +1,33 @@
+#! /usr/bin/env bash
+
+declare -a DATASET
+
+while read -r line; do
+  DATASET+=("$line")
+done < <(sort -n ./input.txt)
+
+((mxj=DATASET[${#DATASET[@]}-1]))
+
+ADAPTER=()
+
+d1=0
+d3=0
+
+((l=${#DATASET[@]}))
+((j=0))
+while ((l>0)); do
+  for i in "${DATASET[@]}"; do
+    [[ ${ADAPTER[$i]} ]] || {
+      ADAPTER["$i"]=1
+      ((l--))
+      ((i==j+1)) && ((d1++))
+      ((i==j+3)) && ((d3++))
+      ((j=i))
+      break
+    }
+  done
+done
+
+ADAPTER[$((mxj+3))]=1
+((d3++))
+echo "$d1 x $d3 = $((d1*d3))"

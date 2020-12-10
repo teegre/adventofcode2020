@@ -1,0 +1,40 @@
+#! /usr/bin/env bash
+
+# Assume jolts[] is a vector with the input, plus 0 and max(input)+3
+# Assume jolts[] is sorted in ascending order
+# dp[0] = 1
+# sum = 1
+# j = 0
+# for i = 1 to len(jolts)-1:
+#     while jolts[i] - jolts[j] > 3:
+#         sum -= dp[j]
+#         ++j
+#     dp[i] = sum
+#     sum += dp[i]
+# print the last element of dp (i.e., dp[len(dp)-1])
+
+declare -a DATASET
+DATASET+=(0)
+while read -r line; do
+  DATASET+=($((line)))
+done < <(sort -n ./input.txt)
+
+((mxj=DATASET[${#DATASET[@]}-1]))
+
+DATASET+=($((mxj+3)))
+
+A=()
+A+=(1)
+sum=1
+j=0
+
+for ((i=1;i<${#DATASET[@]};i++)); do
+  while ((DATASET[i]-DATASET[j]>3)); do
+    ((sum-=A[j]))
+    ((j++))
+  done
+  ((A[i]+=sum))
+  ((sum+=A[i]))
+done
+
+echo "${A[$((${#A[@]}-1))]}"
